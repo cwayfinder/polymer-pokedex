@@ -42,6 +42,10 @@
         @apply(--layout-center-justified);
         background-color: transparent;
       }
+
+      .info-message {
+        margin: 20px 0;
+      }
     </style>
 
     <type-filter id="typeFilter" on-iron-select="onTypeSelect" value="{{selectedType}}"></type-filter>
@@ -56,7 +60,7 @@
       </template>
     </iron-selector>
 
-    <div class="poke-header" hidden$="[[!noRenderedPokemons]]">No pokemons found. Press the "Load more" button or change filters.</div>
+    <div class="info-message" hidden$="[[!noRenderedPokemons]]">No pokemons found. Press the "Load more" button or change filters.</div>
 
     <paper-spinner-lite class="loading-indicator" active hidden$="[[!loading]]"></paper-spinner-lite>
     <paper-button id="loadButton" on-click="loadMore" raised hidden$="[[loading]]">Load more</paper-button>
