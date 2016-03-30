@@ -16,14 +16,6 @@
         display: block;
       }
 
-      :host[loading] #loadButton {
-        display: none;
-      }
-
-      :host:not([loading]) .loading-indicator {
-        display: none;
-      }
-
       .poke-card {
         max-width: 150px;
         margin: 5px;
@@ -64,13 +56,10 @@
       </template>
     </iron-selector>
 
-    <template is="dom-if" if="[[noRenderedPokemons]]">
-      <div class="poke-header">No pokemons found. Press the "Load more" button or change filters.</div>
-    </template>
+    <div class="poke-header" hidden$="[[!noRenderedPokemons]]">No pokemons found. Press the "Load more" button or change filters.</div>
 
-    <paper-spinner-lite class="loading-indicator" active></paper-spinner-lite>
-
-    <paper-button id="loadButton" on-click="loadMore" raised>Load more</paper-button>
+    <paper-spinner-lite class="loading-indicator" active hidden$="[[!loading]]"></paper-spinner-lite>
+    <paper-button id="loadButton" on-click="loadMore" raised hidden$="[[loading]]">Load more</paper-button>
 
   </template>
 
