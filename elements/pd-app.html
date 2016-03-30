@@ -21,14 +21,6 @@
         @apply(--paper-font-display3);
       }
 
-      :host[loading] poke-picker, :host[loading] aside {
-        display: none;
-      }
-
-      :host:not([loading]) .loading-indicator {
-        display: none;
-      }
-
       .loading-indicator {
         margin: 20px;
       }
@@ -53,13 +45,13 @@
 
     <h1>Pokédex</h1>
 
-    <aside>
+    <aside hidden$="[[loading]]">
       <poke-details pokemon="[[selectedPokemon]]"></poke-details>
     </aside>
 
     <main>
-      <paper-spinner-lite class="loading-indicator" active></paper-spinner-lite>
-      <poke-picker value="{{selectedPokemon}}" initial-loading="{{loading}}"></poke-picker>
+      <paper-spinner-lite class="loading-indicator" active hidden$="[[!loading]]"></paper-spinner-lite>
+      <poke-picker value="{{selectedPokemon}}" initial-loading="{{loading}}" hidden$="[[loading]]"></poke-picker>
     </main>
 
   </template>
