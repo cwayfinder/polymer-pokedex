@@ -1,0 +1,77 @@
+<link rel="import" href="../bower_components/paper-card/paper-card.html">
+
+<link rel="import" href="type-colors.html">
+
+<dom-module id="poke-card">
+  <template>
+    <style is="custom-style" include="type-colors">
+      .container {
+        background-color: var(--paper-grey-50);
+      }
+
+      :host[loading] .container {
+        display: none;
+      }
+
+      .card {
+        width: 100%;
+      }
+
+      .poke-card-content {
+        padding: 16px 10px;
+      }
+
+      .poke-type {
+        padding: 4px 6px;
+        margin: 4px;
+        border-radius: 25px;
+        background: var(--paper-grey-300);
+      }
+
+      .poke-header {
+        @apply(--paper-font-title);
+      }
+
+      .horizontal {
+        @apply(--layout-horizontal);
+      }
+    </style>
+
+    <paper-card class="card" image="[[smallImg(pokemon)]]" elevation="2">
+      <div class="card-content poke-card-content">
+        <h3 class="poke-header">[[pokemon.name]]</h3>
+        <div class="horizontal">
+          <template is="dom-repeat" as="type" items="{{pokemon.types}}">
+            <div class$="poke-type [[type.name]]">[[type.name]]</div>
+          </template>
+        </div>
+      </div>
+    </paper-card>
+
+  </template>
+
+  <script>
+    'use strict';
+
+    Polymer({
+      is: 'poke-card',
+
+      properties: {
+        pokemon: {
+          type: Object,
+          notify: true
+        }
+      },
+
+      leftPad: function(number) {
+        const pad = "000";
+        const str = String(number);
+        return pad.substring(0, pad.length - str.length) + str;
+      },
+
+      smallImg: function(pokemon) {
+        return `http://assets.pokemon.com/assets/cms2/img/pokedex/detail/${this.leftPad(pokemon.pkdx_id)}.png`;
+      }
+    });
+  </script>
+</dom-module>

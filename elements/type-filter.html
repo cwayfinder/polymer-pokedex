@@ -1,0 +1,79 @@
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../bower_components/iron-label/iron-label.html">
+<link rel="import" href="../bower_components/iron-localstorage/iron-localstorage.html">
+<link rel="import" href="../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+
+<link rel="import" href="type-colors.html">
+
+<dom-module id="type-filter">
+  <template>
+    <style is="custom-style" include="type-colors">
+      .dropdown-content {
+        @apply(--layout-horizontal);
+        @apply(--layout-wrap);
+        @apply(--layout-center-justified);
+
+        width: 172px;
+        padding: 4px;
+      }
+
+      .poke-type {
+        min-width: 70px;
+        text-align: center;
+        background-color: var(--paper-grey-300);
+        padding: 4px;
+        margin: 4px;
+        border-radius: 25px;
+      }
+
+      /* This is based on a discrepancy between how the browsers decide where the baseline of the label inline-block is. */
+      iron-label {
+        display: inline-block;
+        vertical-align: bottom;
+        margin-bottom: 11px;
+      }
+    </style>
+
+    <iron-ajax id="typesAjax" url="http://pokeapi.co/api/v1/type/?limit=999" handle-as="json" last-response="{{types}}"></iron-ajax>
+    <iron-localstorage name="pokemon-types" value="{{types}}" on-iron-localstorage-load-empty="_loadData"></iron-localstorage>
+
+    <iron-label for="typeMenu">Filter by type</iron-label>
+    <paper-dropdown-menu placeholder="select type" value="{{value}}">
+      <iron-selector class="dropdown-content">
+        <template is="dom-repeat" items="{{types.objects}}" as="type" sort="sortByName">
+          <div class$="poke-type [[lower(type.name)]]">[[lower(type.name)]]</div>
+        </template>
+      </iron-selector>
+    </paper-dropdown-menu>
+
+  </template>
+
+  <script>
+    'use strict';
+
+    Polymer({
+      is: 'type-filter',
+
+      properties: {
+        value: {
+          type: String,
+          notify: true,
+          reflectToAttribute: true
+        }
+      },
+
+      _loadData: function() {
+        this.$.typesAjax.generateRequest();
+      },
+
+      sortByName: function(a, b) {
+        return a.name.localeCompare(b.name);
+      },
+
+      lower: function(str) {
+        return str.toLowerCase();
+      }
+    });
+  </script>
+</dom-module>
