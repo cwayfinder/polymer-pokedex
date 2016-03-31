@@ -72,13 +72,13 @@
       properties: {
         pokemon: {
           type: Object,
-          observer: 'pokemonChange'
+          observer: '_pokemonChanged'
         }
       },
 
-      pokemonChange: function() {
+      _pokemonChanged: function() {
         this.pokeType = this.pokemon.types.map(type => type.name).join(', ');
-        this.pokeId = this.leftPad(this.pokemon.pkdx_id);
+        this.pokeId = this._leftPad(this.pokemon.pkdx_id);
         this.pokeImg = `http://assets.pokemon.com/assets/cms2/img/pokedex/full/${this.pokeId}.png`;
 
         this.pokeStats = [
@@ -93,7 +93,7 @@
         ]
       },
 
-      leftPad: function(number) {
+      _leftPad: function(number) {
         const pad = "000";
         const str = String(number);
         return pad.substring(0, pad.length - str.length) + str;

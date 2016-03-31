@@ -48,14 +48,14 @@
       }
     </style>
 
-    <type-filter id="typeFilter" on-iron-select="onTypeSelect" value="{{selectedType}}"></type-filter>
+    <type-filter id="typeFilter" on-iron-select="_onTypeSelect" value="{{selectedType}}"></type-filter>
 
     <iron-ajax id="pokemonsAjax" url="[[_buildUrl()]]" handle-as="json" on-response="_handleFetchResponse"></iron-ajax>
     <iron-localstorage name="pokemons" value="{{pokemons}}" on-iron-localstorage-load-empty="_loadData"
                        on-iron-localstorage-load="_onLoadEnded"></iron-localstorage>
 
-    <iron-selector id="selector" class="flex-wrap" selected="0" on-iron-select="onSelect">
-      <template is="dom-repeat" id="pokemonList" items="{{pokemons}}" filter="filterByType" observe="selectedType">
+    <iron-selector id="selector" class="flex-wrap" selected="0" on-iron-select="_onSelect">
+      <template is="dom-repeat" id="pokemonList" items="{{pokemons}}" filter="_filterByType" observe="selectedType">
         <poke-card class="poke-card" pokemon="[[item]]"></poke-card>
       </template>
     </iron-selector>
@@ -118,12 +118,12 @@
         this.loading = false;
       },
 
-      onSelect: function(event, selected) {
+      _onSelect: function(event, selected) {
         this.value = selected.item.pokemon;
         this.noRenderedPokemons = this.$.pokemonList.renderedItemCount === 0;
       },
 
-      filterByType: function(pokemon) {
+      _filterByType: function(pokemon) {
         if (this.selectedType) {
           return pokemon.types.some(type => type.name.toLowerCase() === this.selectedType.toLowerCase());
         } else {
@@ -131,7 +131,7 @@
         }
       },
 
-      onTypeSelect: function() {
+      _onTypeSelect: function() {
         this.$.pokemonList.render();
         this.noRenderedPokemons = this.$.pokemonList.renderedItemCount === 0;
       },

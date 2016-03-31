@@ -53,8 +53,8 @@
       <div class="dropdown-content">
         <div class="clear-filter" hidden$="[[!value]]" on-click="clearSelection">Clear filter</div>
         <iron-selector id="selector" class="type-selector">
-          <template is="dom-repeat" items="{{types.objects}}" as="type" sort="sortByName">
-            <div class$="poke-type [[lower(type.name)]]">[[lower(type.name)]]</div>
+          <template is="dom-repeat" items="{{types.objects}}" as="type" sort="_sortByName">
+            <div class$="poke-type [[_lower(type.name)]]">[[_lower(type.name)]]</div>
           </template>
         </iron-selector>
       </div>
@@ -81,11 +81,11 @@
         this.$.typesAjax.generateRequest();
       },
 
-      sortByName: function(a, b) {
+      _sortByName: function(a, b) {
         return a.name.localeCompare(b.name);
       },
 
-      lower: function(str) {
+      _lower: function(str) {
         return str.toLowerCase();
       },
 
