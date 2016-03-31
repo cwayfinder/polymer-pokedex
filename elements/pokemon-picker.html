@@ -6,10 +6,10 @@
 <link rel="import" href="../bower_components/paper-spinner/paper-spinner-lite.html">
 
 <link rel="import" href="type-filter.html">
-<link rel="import" href="poke-card.html">
+<link rel="import" href="pokemon-card.html">
 
 
-<dom-module id="poke-picker">
+<dom-module id="pokemon-picker">
   <template>
     <style is="custom-style">
       :host {
@@ -56,7 +56,7 @@
 
     <iron-selector id="selector" class="flex-wrap" selected="0" on-iron-select="_onSelect">
       <template is="dom-repeat" id="pokemonList" items="{{pokemons}}" filter="_filterByType" observe="selectedType">
-        <poke-card class="poke-card" pokemon="[[item]]"></poke-card>
+        <pokemon-card class="poke-card" pokemon="[[item]]"></pokemon-card>
       </template>
     </iron-selector>
 
@@ -71,7 +71,7 @@
     'use strict';
 
     Polymer({
-      is: 'poke-picker',
+      is: 'pokemon-picker',
 
       properties: {
         pokemons: Array,

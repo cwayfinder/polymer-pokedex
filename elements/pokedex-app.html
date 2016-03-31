@@ -5,11 +5,11 @@
 
 <link rel="import" href="../bower_components/paper-spinner/paper-spinner-lite.html">
 
-<link rel="import" href="poke-picker.html">
-<link rel="import" href="poke-details.html">
+<link rel="import" href="pokemon-picker.html">
+<link rel="import" href="pokemon-details.html">
 
 
-<dom-module id="pd-app">
+<dom-module id="pokedex-app">
   <template>
     <style is="custom-style">
       :host {
@@ -46,12 +46,12 @@
     <h1>Pokédex</h1>
 
     <aside hidden$="[[loading]]">
-      <poke-details pokemon="[[selectedPokemon]]"></poke-details>
+      <pokemon-details pokemon="[[selectedPokemon]]"></pokemon-details>
     </aside>
 
     <main>
       <paper-spinner-lite class="loading-indicator" active hidden$="[[!loading]]"></paper-spinner-lite>
-      <poke-picker value="{{selectedPokemon}}" initial-loading="{{loading}}" hidden$="[[loading]]"></poke-picker>
+      <pokemon-picker value="{{selectedPokemon}}" initial-loading="{{loading}}" hidden$="[[loading]]"></pokemon-picker>
     </main>
 
   </template>
@@ -60,7 +60,7 @@
     'use strict';
 
     Polymer({
-      is: 'pd-app',
+      is: 'pokedex-app',
 
       properties: {
         loading: {
