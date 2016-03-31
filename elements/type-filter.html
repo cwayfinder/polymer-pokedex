@@ -10,12 +10,14 @@
   <template>
     <style is="custom-style" include="type-colors">
       .dropdown-content {
+        width: 172px;
+        padding: 4px;
+      }
+
+      .type-selector {
         @apply(--layout-horizontal);
         @apply(--layout-wrap);
         @apply(--layout-center-justified);
-
-        width: 172px;
-        padding: 4px;
       }
 
       .poke-type {
@@ -25,6 +27,14 @@
         padding: 4px;
         margin: 4px;
         border-radius: 25px;
+      }
+
+      .clear-filter {
+        padding: 4px 20px;
+        margin: 4px;
+        border: 1px solid  var(--paper-grey-300);
+        border-radius: 25px;
+        text-align: center;
       }
 
       /* This is based on a discrepancy between how the browsers decide where the baseline of the label inline-block is. */
@@ -40,11 +50,14 @@
 
     <iron-label for="typeMenu">Filter by type</iron-label>
     <paper-dropdown-menu placeholder="select type" value="{{value}}">
-      <iron-selector class="dropdown-content">
-        <template is="dom-repeat" items="{{types.objects}}" as="type" sort="sortByName">
-          <div class$="poke-type [[lower(type.name)]]">[[lower(type.name)]]</div>
-        </template>
-      </iron-selector>
+      <div class="dropdown-content">
+        <div class="clear-filter" on-click="clearSelection">Clear filter</div>
+        <iron-selector id="selector" class="type-selector">
+          <template is="dom-repeat" items="{{types.objects}}" as="type" sort="sortByName">
+            <div class$="poke-type [[lower(type.name)]]">[[lower(type.name)]]</div>
+          </template>
+        </iron-selector>
+      </div>
     </paper-dropdown-menu>
 
   </template>
@@ -73,6 +86,10 @@
 
       lower: function(str) {
         return str.toLowerCase();
+      },
+
+      clearSelection: function() {
+        this.$.selector.fire('iron-select');
       }
     });
   </script>
