@@ -96,7 +96,7 @@
       _leftPad: function(number) {
         const pad = "000";
         const str = String(number);
-        return pad.substring(0, pad.length - str.length) + str;
+        return pad.length > str.length ? pad.substring(str.length) + str : str;
       }
     });
   </script>
