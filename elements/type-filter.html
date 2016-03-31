@@ -51,7 +51,7 @@
     <iron-label for="typeMenu">Filter by type</iron-label>
     <paper-dropdown-menu placeholder="select type" value="{{value}}">
       <div class="dropdown-content">
-        <div class="clear-filter" on-click="clearSelection">Clear filter</div>
+        <div class="clear-filter" hidden$="[[!value]]" on-click="clearSelection">Clear filter</div>
         <iron-selector id="selector" class="type-selector">
           <template is="dom-repeat" items="{{types.objects}}" as="type" sort="sortByName">
             <div class$="poke-type [[lower(type.name)]]">[[lower(type.name)]]</div>
@@ -72,7 +72,8 @@
         value: {
           type: String,
           notify: true,
-          reflectToAttribute: true
+          reflectToAttribute: true,
+          value: null
         }
       },
 
