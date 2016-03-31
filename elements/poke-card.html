@@ -38,7 +38,7 @@
       }
     </style>
 
-    <paper-card class="card" image="[[smallImg(pokemon)]]" elevation="2">
+    <paper-card class="card" image="[[_smallImg(pokemon)]]" elevation="2">
       <div class="card-content poke-card-content">
         <h3 class="poke-header">[[pokemon.name]]</h3>
         <div class="horizontal">
@@ -64,14 +64,14 @@
         }
       },
 
-      leftPad: function(number) {
+      _leftPad: function(number) {
         const pad = "000";
         const str = String(number);
         return pad.substring(0, pad.length - str.length) + str;
       },
 
-      smallImg: function(pokemon) {
-        return `http://assets.pokemon.com/assets/cms2/img/pokedex/detail/${this.leftPad(pokemon.pkdx_id)}.png`;
+      _smallImg: function(pokemon) {
+        return `http://assets.pokemon.com/assets/cms2/img/pokedex/detail/${this._leftPad(pokemon.pkdx_id)}.png`;
       }
     });
   </script>
